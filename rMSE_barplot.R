@@ -52,5 +52,7 @@ ggplot(rmse_data, aes(x = reorder(Method, -RMSE), y = RMSE, fill = Variant)) +
         legend.justification = c("right", "top"),
         legend.background = element_rect(fill = "white", color = "grey80"))
 
+ggsave("figures/rmse_barplot.png", width = 8, height = 6, dpi = 300)
+
 
 

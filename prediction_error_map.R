@@ -74,3 +74,5 @@ ggplot() +
         legend.text = element_text(size = 12),
         legend.title = element_text(size = 12),
         strip.text = element_text(size = 12))
+
+ggsave("figures/prediction_error_map.png", width = 10, height = 8, dpi = 300)

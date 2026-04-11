@@ -2,7 +2,7 @@ source('functions.R')
 
 ## load data
 
-data <- load_nitrate_data(file_path = "/data/data_Nitrate_with_covar.csv", zero_inflated = TRUE)
+data <- load_nitrate_data(file_path = "data/data_Nitrate_with_covar.csv", zero_inflated = TRUE)
 
 
 ## Model Fitting on 70% Training Data & Prediction on 30% Test Data
@@ -54,6 +54,8 @@ data_split$data_test$pred_ranger_krig <- nitrate_fitted_ranger$pred_test + nitra
 
 saveRDS(data_split, "results/data_split.rds")
 
+
+
 ## Fitting on Full Data and 3D Prediction 
 
 data <- load_nitrate_data(file_path = "data/data_Nitrate_with_covar.csv", zero_inflated = TRUE)
@@ -88,4 +90,28 @@ saveRDS(predictions_3D_grid,'results/predictions_3D_grid.rds')
 
 
 
-
+# ## Model Fitting on 70% Training Data & Prediction on 30% Test Data Excluding <2mg/L Obs
+# 
+# data_less_two <- data[data$concentration_plus_median >= 2.5, ]
+# data_split_less_two <- split_nitrate_data(data_less_two)
+# 
+# nitrate_fitted_ranger_less_two <- nitrate_prediction_ranger(
+#   data = data_split_less_two$data,
+#   data_test = data_split_less_two$data_test
+# )
+# 
+# data_split_less_two$data_test$pred_ranger      <- nitrate_fitted_ranger_less_two$pred_test
+# data_split_less_two$data_test$pred_ranger_krig <- nitrate_fitted_ranger_less_two$pred_test + nitrate_fitted_ranger_less_two$krige_values_test
+# 
+# ### linear regression (trained on original scale)
+# nitrate_fitted_lm_less_two <- nitrate_prediction_SL(
+#   data = data_split_less_two$data,
+#   data_test = data_split_less_two$data_test,
+#   SL.library = "SL.lm"
+# )
+# 
+# data_split_less_two$data_test$pred_lm      <- nitrate_fitted_lm_less_two$pred_test
+# data_split_less_two$data_test$pred_lm_krig <- nitrate_fitted_lm_less_two$pred_test + nitrate_fitted_lm_less_two$krige_values_test
+# 
+# saveRDS(data_split_less_two, "results/data_split_less_two.rds")
+# 

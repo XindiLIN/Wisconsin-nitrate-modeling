@@ -8,7 +8,7 @@ pred_matrix <- predictions_3D_grid$pred_matrix
 krige_values_PLSS_ranger <- predictions_3D_grid$krige_values_PLSS_ranger
 treatment_values <- predictions_3D_grid$log_well_depth_grid
 
-plss_covariates <- read.csv(file = "/data/plss_covariates.csv")
+plss_covariates <- read.csv(file = "data/plss_covariates.csv")
 
 ## incremental depth search
 
@@ -87,5 +87,7 @@ ggplot() +
     legend.key.width = unit(0.5, "cm"),
     panel.spacing = unit(2, "lines") # Adds space between the two maps
   )
+
+ggsave("figures/required_depth_map.png", width = 10, height = 5, dpi = 300)
 
 
